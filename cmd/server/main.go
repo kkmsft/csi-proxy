@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 
+	diskapi "github.com/kubernetes-csi/csi-proxy/internal/os/disk"
 	filesystemapi "github.com/kubernetes-csi/csi-proxy/internal/os/filesystem"
 	volumeapi "github.com/kubernetes-csi/csi-proxy/internal/os/volume"
 	"github.com/kubernetes-csi/csi-proxy/internal/server"
+	disksrv "github.com/kubernetes-csi/csi-proxy/internal/server/disk"
 	filesystemsrv "github.com/kubernetes-csi/csi-proxy/internal/server/filesystem"
 	srvtypes "github.com/kubernetes-csi/csi-proxy/internal/server/types"
 	volumesrv "github.com/kubernetes-csi/csi-proxy/internal/server/volume"
@@ -47,5 +49,12 @@ func apiGroups() ([]srvtypes.APIGroup, error) {
 	return []srvtypes.APIGroup{
 		fssrv,
 		volumesrv,
+	disksrv, err := disksrv.NewServer(diskapi.New())
+	if err != nil {
+		return []srvtypes.APIGroup{}, err
+	}
+	return []srvtypes.APIGroup{
+		fssrv,
+		disksrv,
 	}, nil
 }
