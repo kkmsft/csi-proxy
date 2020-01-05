@@ -4,9 +4,9 @@ package disk
 
 import (
 	"github.com/kubernetes-csi/csi-proxy/client/apiversion"
-	srvtypes "github.com/kubernetes-csi/csi-proxy/internal/server/types"
 	"github.com/kubernetes-csi/csi-proxy/internal/server/disk/internal"
 	"github.com/kubernetes-csi/csi-proxy/internal/server/disk/internal/v1alpha1"
+	srvtypes "github.com/kubernetes-csi/csi-proxy/internal/server/types"
 )
 
 const name = "disk"

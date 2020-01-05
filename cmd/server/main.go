@@ -45,10 +45,6 @@ func apiGroups() ([]srvtypes.APIGroup, error) {
 	if err != nil {
 		return []srvtypes.APIGroup{}, err
 	}
-
-	return []srvtypes.APIGroup{
-		fssrv,
-		volumesrv,
 	disksrv, err := disksrv.NewServer(diskapi.New())
 	if err != nil {
 		return []srvtypes.APIGroup{}, err
@@ -56,5 +52,6 @@ func apiGroups() ([]srvtypes.APIGroup, error) {
 	return []srvtypes.APIGroup{
 		fssrv,
 		disksrv,
+		volumesrv,
 	}, nil
 }
