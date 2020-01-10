@@ -123,3 +123,12 @@ type LinkPathResponse struct {
 	// Error message if any. Empty string indicates success
 	Error string
 }
+
+type IsLikelyNotMountPointRequest struct {
+	Path string
+}
+
+type IsLikelyNotMountPointResponse struct {
+	Error           string
+	IsNotMountPoint bool
+}

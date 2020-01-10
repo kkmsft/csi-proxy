@@ -27,6 +27,25 @@ func (s *versionedAPI) Register(grpcServer *grpc.Server) {
 	v1alpha1.RegisterFilesystemServer(grpcServer, s)
 }
 
+func (s *versionedAPI) IsLikelyNotMountPoint(context context.Context, versionedRequest *v1alpha1.IsLikelyNotMountPointRequest) (*v1alpha1.IsLikelyNotMountPointResponse, error) {
+	request := &internal.IsLikelyNotMountPointRequest{}
+	if err := Convert_v1alpha1_IsLikelyNotMountPointRequest_To_internal_IsLikelyNotMountPointRequest(versionedRequest, request); err != nil {
+		return nil, err
+	}
+
+	response, err := s.apiGroupServer.IsLikelyNotMountPoint(context, request, version)
+	if err != nil {
+		return nil, err
+	}
+
+	versionedResponse := &v1alpha1.IsLikelyNotMountPointResponse{}
+	if err := Convert_internal_IsLikelyNotMountPointResponse_To_v1alpha1_IsLikelyNotMountPointResponse(response, versionedResponse); err != nil {
+		return nil, err
+	}
+
+	return versionedResponse, err
+}
+
 func (s *versionedAPI) LinkPath(context context.Context, versionedRequest *v1alpha1.LinkPathRequest) (*v1alpha1.LinkPathResponse, error) {
 	request := &internal.LinkPathRequest{}
 	if err := Convert_v1alpha1_LinkPathRequest_To_internal_LinkPathRequest(versionedRequest, request); err != nil {
