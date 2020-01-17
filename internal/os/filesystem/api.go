@@ -4,6 +4,7 @@ import (
 	// "fmt"
 	"fmt"
 	"os"
+	"k8s.io/klog"
 	// "os/exec"
 	// "runtime"
 )
@@ -35,6 +36,7 @@ func (APIImplementor) PathExists(path string) (bool, error) {
 }
 
 func (APIImplementor) Mkdir(path string) error {
+	klog.Infof("going to create path: %s", path)
 	return os.MkdirAll(path, 0755)
 }
 
@@ -46,17 +48,21 @@ func (APIImplementor) Rmdir(path string, force bool) error {
 }
 
 func (APIImplementor) LinkPath(tgt string, src string) error {
+	klog.Infof("going to call the link path: src: )
 	return os.Symlink(tgt, src)
 }
 
 func (APIImplementor) IsLikelyNotMountPoint(tgt string) (bool, error) {
 	// TODO: Reuse the code in mount_windows under k8s.io/kubernetes/pkg/util/mount
 	// This code is same except the pathExists usage.
+	klog.Info("Here going to lstat")
 	stat, err := os.Lstat(tgt)
 	if err != nil {
+		klog.Infof("Here returning: %v ", err)
 		return true, err
 	}
 
+	klog.Info("going to check the link")
 	// If its a link and it points to an existing file then its a mount point.
 	if stat.Mode()&os.ModeSymlink != 0 {
 		target, err := os.Readlink(tgt)

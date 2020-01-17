@@ -69,13 +69,14 @@ func isAbsWindows(path string) bool {
 
 func (s *Server) validatePathWindows(pathCtx internal.PathContext, path string) error {
 	prefix := ""
-	if pathCtx == internal.PLUGIN {
+	
+	/*if pathCtx == internal.PLUGIN {
 		prefix = s.kubeletCSIPluginsPath
 	} else if pathCtx == internal.POD {
 		prefix = s.kubeletPodPath
 	} else {
 		return fmt.Errorf("invalid PathContext: %v", pathCtx)
-	}
+	}*/
 
 	pathlen := len(path)
 
@@ -127,13 +128,13 @@ func (s *Server) PathExists(ctx context.Context, request *internal.PathExistsReq
 }
 
 func (s *Server) Mkdir(ctx context.Context, request *internal.MkdirRequest, version apiversion.Version) (*internal.MkdirResponse, error) {
-	err := s.validatePathWindows(request.Context, request.Path)
+	/*err := s.validatePathWindows(request.Context, request.Path)
 	if err != nil {
 		return &internal.MkdirResponse{
 			Error: err.Error(),
 		}, err
-	}
-	err = s.hostAPI.Mkdir(request.Path)
+	}*/
+	err := s.hostAPI.Mkdir(request.Path)	
 	if err != nil {
 		return &internal.MkdirResponse{
 			Error: err.Error(),
@@ -164,7 +165,7 @@ func (s *Server) Rmdir(ctx context.Context, request *internal.RmdirRequest, vers
 }
 
 func (s *Server) LinkPath(ctx context.Context, request *internal.LinkPathRequest, version apiversion.Version) (*internal.LinkPathResponse, error) {
-	err := s.validatePathWindows(internal.POD, request.SourcePath)
+	/*err := s.validatePathWindows(internal.POD, request.SourcePath)
 	if err != nil {
 		return &internal.LinkPathResponse{
 			Error: err.Error(),
@@ -175,8 +176,9 @@ func (s *Server) LinkPath(ctx context.Context, request *internal.LinkPathRequest
 		return &internal.LinkPathResponse{
 			Error: err.Error(),
 		}, nil
-	}
-	err = s.hostAPI.LinkPath(request.TargetPath, request.SourcePath)
+	}*/
+	
+	err := s.hostAPI.LinkPath(request.SourcePath, request.TargetPath)
 	errString := ""
 	if err != nil {
 		errString = err.Error()
@@ -187,10 +189,10 @@ func (s *Server) LinkPath(ctx context.Context, request *internal.LinkPathRequest
 }
 
 func (s *Server) IsLikelyNotMountPoint(ctx context.Context, request *internal.IsLikelyNotMountPointRequest, version apiversion.Version) (*internal.IsLikelyNotMountPointResponse, error) {
-	isNotMount, err := s.hostAPI.PathExists(request.Path)
+	isNotMount, err := s.hostAPI.IsLikelyNotMountPoint(request.Path)
 	if err != nil {
 		return &internal.IsLikelyNotMountPointResponse{
-			IsNotMountPoint: false,
+			IsNotMountPoint: true,
 			Error:           err.Error(),
 		}, nil
 	}
