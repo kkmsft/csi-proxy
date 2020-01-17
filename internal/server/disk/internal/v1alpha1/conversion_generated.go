@@ -7,6 +7,7 @@ import (
 
 	v1alpha1 "github.com/kubernetes-csi/csi-proxy/client/api/disk/v1alpha1"
 	internal "github.com/kubernetes-csi/csi-proxy/internal/server/disk/internal"
+	"k8s.io/klog"
 )
 
 func autoConvert_v1alpha1_DiskIDList_To_internal_DiskIDList(in *v1alpha1.DiskIDList, out *internal.DiskIDList) error {
@@ -162,11 +163,13 @@ func autoConvert_internal_ListDiskLocationsResponse_To_v1alpha1_ListDiskLocation
 		in, out := &in.DiskLocations, &out.DiskLocations
 		*out = make(map[string]*v1alpha1.DiskLocation, len(*in))
 		for key, val := range *in {
-			newVal := new(*v1alpha1.DiskLocation)
-			if err := Convert_internal_DiskLocation_To_v1alpha1_DiskLocation(*&val, *newVal); err != nil {
+			newVal := new(v1alpha1.DiskLocation)
+			klog.Infof("i-%v-%v, o-%v", key, val, newVal)
+			klog.Infof("vA=%s. newA=%s", val.Adapter, newVal.Adapter)
+			if err := Convert_internal_DiskLocation_To_v1alpha1_DiskLocation(*&val, newVal); err != nil {
 				return err
 			}
-			(*out)[key] = *newVal
+			(*out)[key] = newVal
 		}
 	} else {
 		out.DiskLocations = nil
