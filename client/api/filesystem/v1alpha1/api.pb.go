@@ -493,6 +493,95 @@ func (m *LinkPathResponse) GetError() string {
 	return ""
 }
 
+type IsLikelyNotMountPointRequest struct {
+	// The path whose existence we want to check in the host's filesystem
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *IsLikelyNotMountPointRequest) Reset()         { *m = IsLikelyNotMountPointRequest{} }
+func (m *IsLikelyNotMountPointRequest) String() string { return proto.CompactTextString(m) }
+func (*IsLikelyNotMountPointRequest) ProtoMessage()    {}
+func (*IsLikelyNotMountPointRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_00212fb1f9d3bf1c, []int{8}
+}
+
+func (m *IsLikelyNotMountPointRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsLikelyNotMountPointRequest.Unmarshal(m, b)
+}
+func (m *IsLikelyNotMountPointRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsLikelyNotMountPointRequest.Marshal(b, m, deterministic)
+}
+func (m *IsLikelyNotMountPointRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsLikelyNotMountPointRequest.Merge(m, src)
+}
+func (m *IsLikelyNotMountPointRequest) XXX_Size() int {
+	return xxx_messageInfo_IsLikelyNotMountPointRequest.Size(m)
+}
+func (m *IsLikelyNotMountPointRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsLikelyNotMountPointRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IsLikelyNotMountPointRequest proto.InternalMessageInfo
+
+func (m *IsLikelyNotMountPointRequest) GetPath() string {
+	if m != nil {
+		return m.Path
+	}
+	return ""
+}
+
+type IsLikelyNotMountPointResponse struct {
+	// Error message if any. Empty string indicates success
+	Error string `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+	// Indicates whether the path in PathExistsRequest exists in the host's filesystem
+	IsNotMountPoint      bool     `protobuf:"varint,2,opt,name=is_not_mount_point,json=isNotMountPoint,proto3" json:"is_not_mount_point,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *IsLikelyNotMountPointResponse) Reset()         { *m = IsLikelyNotMountPointResponse{} }
+func (m *IsLikelyNotMountPointResponse) String() string { return proto.CompactTextString(m) }
+func (*IsLikelyNotMountPointResponse) ProtoMessage()    {}
+func (*IsLikelyNotMountPointResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_00212fb1f9d3bf1c, []int{9}
+}
+
+func (m *IsLikelyNotMountPointResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsLikelyNotMountPointResponse.Unmarshal(m, b)
+}
+func (m *IsLikelyNotMountPointResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsLikelyNotMountPointResponse.Marshal(b, m, deterministic)
+}
+func (m *IsLikelyNotMountPointResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsLikelyNotMountPointResponse.Merge(m, src)
+}
+func (m *IsLikelyNotMountPointResponse) XXX_Size() int {
+	return xxx_messageInfo_IsLikelyNotMountPointResponse.Size(m)
+}
+func (m *IsLikelyNotMountPointResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsLikelyNotMountPointResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IsLikelyNotMountPointResponse proto.InternalMessageInfo
+
+func (m *IsLikelyNotMountPointResponse) GetError() string {
+	if m != nil {
+		return m.Error
+	}
+	return ""
+}
+
+func (m *IsLikelyNotMountPointResponse) GetIsNotMountPoint() bool {
+	if m != nil {
+		return m.IsNotMountPoint
+	}
+	return false
+}
+
 func init() {
 	proto.RegisterEnum("v1alpha1.PathContext", PathContext_name, PathContext_value)
 	proto.RegisterType((*PathExistsRequest)(nil), "v1alpha1.PathExistsRequest")
@@ -503,6 +592,8 @@ func init() {
 	proto.RegisterType((*RmdirResponse)(nil), "v1alpha1.RmdirResponse")
 	proto.RegisterType((*LinkPathRequest)(nil), "v1alpha1.LinkPathRequest")
 	proto.RegisterType((*LinkPathResponse)(nil), "v1alpha1.LinkPathResponse")
+	proto.RegisterType((*IsLikelyNotMountPointRequest)(nil), "v1alpha1.IsLikelyNotMountPointRequest")
+	proto.RegisterType((*IsLikelyNotMountPointResponse)(nil), "v1alpha1.IsLikelyNotMountPointResponse")
 }
 
 func init() {
@@ -561,6 +652,8 @@ type FilesystemClient interface {
 	// LinkPath creates a local directory symbolic link between a source path
 	// and target path in the host's filesystem
 	LinkPath(ctx context.Context, in *LinkPathRequest, opts ...grpc.CallOption) (*LinkPathResponse, error)
+	//IsLikelyNotMountPoint checks if a given path is mount or not
+	IsLikelyNotMountPoint(ctx context.Context, in *IsLikelyNotMountPointRequest, opts ...grpc.CallOption) (*IsLikelyNotMountPointResponse, error)
 }
 
 type filesystemClient struct {
@@ -607,6 +700,15 @@ func (c *filesystemClient) LinkPath(ctx context.Context, in *LinkPathRequest, op
 	return out, nil
 }
 
+func (c *filesystemClient) IsLikelyNotMountPoint(ctx context.Context, in *IsLikelyNotMountPointRequest, opts ...grpc.CallOption) (*IsLikelyNotMountPointResponse, error) {
+	out := new(IsLikelyNotMountPointResponse)
+	err := c.cc.Invoke(ctx, "/v1alpha1.Filesystem/IsLikelyNotMountPoint", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FilesystemServer is the server API for Filesystem service.
 type FilesystemServer interface {
 	// PathExists checks if the requested path exists in the host's filesystem
@@ -619,6 +721,8 @@ type FilesystemServer interface {
 	// LinkPath creates a local directory symbolic link between a source path
 	// and target path in the host's filesystem
 	LinkPath(context.Context, *LinkPathRequest) (*LinkPathResponse, error)
+	//IsLikelyNotMountPoint checks if a given path is mount or not
+	IsLikelyNotMountPoint(context.Context, *IsLikelyNotMountPointRequest) (*IsLikelyNotMountPointResponse, error)
 }
 
 // UnimplementedFilesystemServer can be embedded to have forward compatible implementations.
@@ -636,6 +740,9 @@ func (*UnimplementedFilesystemServer) Rmdir(ctx context.Context, req *RmdirReque
 }
 func (*UnimplementedFilesystemServer) LinkPath(ctx context.Context, req *LinkPathRequest) (*LinkPathResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LinkPath not implemented")
+}
+func (*UnimplementedFilesystemServer) IsLikelyNotMountPoint(ctx context.Context, req *IsLikelyNotMountPointRequest) (*IsLikelyNotMountPointResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsLikelyNotMountPoint not implemented")
 }
 
 func RegisterFilesystemServer(s *grpc.Server, srv FilesystemServer) {
@@ -714,6 +821,24 @@ func _Filesystem_LinkPath_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Filesystem_IsLikelyNotMountPoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsLikelyNotMountPointRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FilesystemServer).IsLikelyNotMountPoint(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1alpha1.Filesystem/IsLikelyNotMountPoint",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FilesystemServer).IsLikelyNotMountPoint(ctx, req.(*IsLikelyNotMountPointRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Filesystem_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "v1alpha1.Filesystem",
 	HandlerType: (*FilesystemServer)(nil),
@@ -733,6 +858,10 @@ var _Filesystem_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LinkPath",
 			Handler:    _Filesystem_LinkPath_Handler,
+		},
+		{
+			MethodName: "IsLikelyNotMountPoint",
+			Handler:    _Filesystem_IsLikelyNotMountPoint_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
