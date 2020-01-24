@@ -52,6 +52,11 @@ func (APIImplementor) LinkPath(tgt string, src string) error {
 func (APIImplementor) IsLikelyNotMountPoint(tgt string) (bool, error) {
 	// TODO: Reuse the code in mount_windows under k8s.io/kubernetes/pkg/util/mount
 	// This code is same except the pathExists usage.
+	// Check if its a path which is not a link.
+	// a) if its a link, then check if the target exists:
+	//    - if target exists then return false (means it is a mount point)
+	//    - if not return true (means not a mount point)
+	// b) if its not a link return true, which means its not a mount point.
 	stat, err := os.Lstat(tgt)
 	if err != nil {
 		return true, err
