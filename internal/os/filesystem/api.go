@@ -3,8 +3,8 @@ package filesystem
 import (
 	// "fmt"
 	"fmt"
-	"os"
 	"k8s.io/klog"
+	"os"
 	// "os/exec"
 	// "runtime"
 )
@@ -47,9 +47,14 @@ func (APIImplementor) Rmdir(path string, force bool) error {
 	return os.Remove(path)
 }
 
-func (APIImplementor) LinkPath(tgt string, src string) error {
-	klog.Infof("going to call the link path: src: )
-	return os.Symlink(tgt, src)
+func (APIImplementor) LinkPath(src string, tgt string) error {
+	klog.Infof("going to call the link path - src: (old)  %s, tgt: (new) %s", src, tgt)
+	err := os.Symlink(src, tgt)
+	if err != nil {
+		klog.Info("Error from symlink: %+v", err)
+		return err
+	}
+	return nil
 }
 
 func (APIImplementor) IsLikelyNotMountPoint(tgt string) (bool, error) {

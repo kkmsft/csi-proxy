@@ -69,7 +69,7 @@ func isAbsWindows(path string) bool {
 
 func (s *Server) validatePathWindows(pathCtx internal.PathContext, path string) error {
 	prefix := ""
-	
+
 	/*if pathCtx == internal.PLUGIN {
 		prefix = s.kubeletCSIPluginsPath
 	} else if pathCtx == internal.POD {
@@ -134,7 +134,7 @@ func (s *Server) Mkdir(ctx context.Context, request *internal.MkdirRequest, vers
 			Error: err.Error(),
 		}, err
 	}*/
-	err := s.hostAPI.Mkdir(request.Path)	
+	err := s.hostAPI.Mkdir(request.Path)
 	if err != nil {
 		return &internal.MkdirResponse{
 			Error: err.Error(),
@@ -147,13 +147,13 @@ func (s *Server) Mkdir(ctx context.Context, request *internal.MkdirRequest, vers
 }
 
 func (s *Server) Rmdir(ctx context.Context, request *internal.RmdirRequest, version apiversion.Version) (*internal.RmdirResponse, error) {
-	err := s.validatePathWindows(request.Context, request.Path)
+	/*err := s.validatePathWindows(request.Context, request.Path)
 	if err != nil {
 		return &internal.RmdirResponse{
 			Error: err.Error(),
 		}, nil
-	}
-	err = s.hostAPI.Rmdir(request.Path, request.Force)
+	}*/
+	err := s.hostAPI.Rmdir(request.Path, request.Force)
 	if err != nil {
 		return &internal.RmdirResponse{
 			Error: err.Error(),
@@ -177,15 +177,12 @@ func (s *Server) LinkPath(ctx context.Context, request *internal.LinkPathRequest
 			Error: err.Error(),
 		}, nil
 	}*/
-	
+
 	err := s.hostAPI.LinkPath(request.SourcePath, request.TargetPath)
-	errString := ""
 	if err != nil {
-		errString = err.Error()
+		return nil, err
 	}
-	return &internal.LinkPathResponse{
-		Error: errString,
-	}, nil
+	return &internal.LinkPathResponse{}, nil
 }
 
 func (s *Server) IsLikelyNotMountPoint(ctx context.Context, request *internal.IsLikelyNotMountPointRequest, version apiversion.Version) (*internal.IsLikelyNotMountPointResponse, error) {
