@@ -17,8 +17,8 @@ service Filesystem {
     // and target path in the host's filesystem
     rpc LinkPath(LinkPathRequest) returns (LinkPathResponse) {}
 
-    //IsLikelyNotMountPoint checks if a given path is mount or not
-    rpc IsLikelyNotMountPoint(IsLikelyNotMountPointRequest) returns (IsLikelyNotMountPointResponse) {}
+    //IsMountPoint checks if a given path is mount or not
+    rpc IsMountPoint(IsMountPointRequest) returns (IsMountPointResponse) {}
 }
 
 // Context of the paths used for path prefix validation
@@ -154,15 +154,15 @@ message LinkPathResponse {
     string error = 1;
 }
  
-message IsLikelyNotMountPointRequest {
+message IsMountPointRequest {
     // The path whose existence we want to check in the host's filesystem
     string path = 1;
 }
 
-message IsLikelyNotMountPointResponse {
+message IsMountPointResponse {
     // Error message if any. Empty string indicates success
     string error = 1;
 
     // Indicates whether the path in PathExistsRequest exists in the host's filesystem
-    bool is_not_mount_point = 2;
+    bool is_mount_point = 2;
 }

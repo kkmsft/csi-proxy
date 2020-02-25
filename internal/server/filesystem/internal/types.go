@@ -124,11 +124,11 @@ type LinkPathResponse struct {
 	Error string
 }
 
-type IsLikelyNotMountPointRequest struct {
+type IsMountPointRequest struct {
 	Path string
 }
 
-type IsLikelyNotMountPointResponse struct {
-	Error           string
-	IsNotMountPoint bool
+type IsMountPointResponse struct {
+	Error        string
+	IsMountPoint bool
 }

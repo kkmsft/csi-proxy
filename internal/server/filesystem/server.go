@@ -25,7 +25,7 @@ type API interface {
 	Mkdir(path string) error
 	Rmdir(path string, force bool) error
 	LinkPath(tgt string, src string) error
-	IsLikelyNotMountPoint(path string) (bool, error)
+	IsMountPoint(path string) (bool, error)
 }
 
 func NewServer(kubeletCSIPluginsPath string, kubeletPodPath string, hostAPI API) (*Server, error) {
@@ -186,16 +186,16 @@ func (s *Server) LinkPath(ctx context.Context, request *internal.LinkPathRequest
 	}, nil
 }
 
-func (s *Server) IsLikelyNotMountPoint(ctx context.Context, request *internal.IsLikelyNotMountPointRequest, version apiversion.Version) (*internal.IsLikelyNotMountPointResponse, error) {
-	isNotMount, err := s.hostAPI.IsLikelyNotMountPoint(request.Path)
+func (s *Server) IsMountPoint(ctx context.Context, request *internal.IsMountPointRequest, version apiversion.Version) (*internal.IsMountPointResponse, error) {
+	isMount, err := s.hostAPI.IsMountPoint(request.Path)
 	if err != nil {
-		return &internal.IsLikelyNotMountPointResponse{
-			IsNotMountPoint: true,
-			Error:           err.Error(),
+		return &internal.IsMountPointResponse{
+			IsMountPoint: false,
+			Error:        err.Error(),
 		}, nil
 	}
-	return &internal.IsLikelyNotMountPointResponse{
-		Error:           "",
-		IsNotMountPoint: isNotMount,
+	return &internal.IsMountPointResponse{
+		Error:        "",
+		IsMountPoint: isMount,
 	}, nil
 }

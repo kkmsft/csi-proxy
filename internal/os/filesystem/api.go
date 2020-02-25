@@ -4,6 +4,8 @@ import (
 	// "fmt"
 	"fmt"
 	"os"
+
+	"k8s.io/klog"
 	// "os/exec"
 	// "runtime"
 )
@@ -49,31 +51,32 @@ func (APIImplementor) LinkPath(tgt string, src string) error {
 	return os.Symlink(tgt, src)
 }
 
-func (APIImplementor) IsLikelyNotMountPoint(tgt string) (bool, error) {
-	// TODO: Reuse the code in mount_windows under k8s.io/kubernetes/pkg/util/mount
-	// This code is same except the pathExists usage.
-	// Check if its a path which is not a link.
-	// a) if its a link, then check if the target exists:
-	//    - if target exists then return false (means it is a mount point)
-	//    - if not return true (means not a mount point)
-	// b) if its not a link return true, which means its not a mount point.
+// IsMountPoint - returns true if its a mount point.
+// A path is considered a mount point if:
+//  - directory exists and
+//  - it is a soft link and
+//  - the target path of the link exists.
+func (APIImplementor) IsMountPoint(tgt string) (bool, error) {	
+	// This code is similar to k8s.io/kubernetes/pkg/util/mount except the pathExists usage.
+	// Also in a remote call environment the os error cannot be passed directly back, hence the callers
+	// are expected to perform the isExists check before calling this call in CSI proxy.
 	stat, err := os.Lstat(tgt)
 	if err != nil {
-		return true, err
+		return false, err
 	}
 
 	// If its a link and it points to an existing file then its a mount point.
 	if stat.Mode()&os.ModeSymlink != 0 {
 		target, err := os.Readlink(tgt)
 		if err != nil {
-			return true, fmt.Errorf("readlink error: %v", err)
+			return false, fmt.Errorf("readlink error: %v", err)
 		}
 		exists, err := pathExists(target)
 		if err != nil {
-			return true, err
+			return false, err
 		}
-		return !exists, nil
+		return exists, nil
 	}
 
-	return true, nil
+	return false, nil
 }
