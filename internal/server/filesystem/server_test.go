@@ -23,7 +23,7 @@ func (fakeFileSystemAPI) LinkPath(tgt string, src string) error {
 	return nil
 }
 
-func (fakeFileSystemAPI) IsLikelyNotMountPoint(path string) (bool, error) {
+func (fakeFileSystemAPI) IsMountPoint(path string) (bool, error) {
 	return true, nil
 }
 
