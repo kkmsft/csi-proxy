@@ -51,8 +51,8 @@ func (w *Client) Close() error {
 // ensures we implement all the required methods
 var _ v1alpha1.FilesystemClient = &Client{}
 
-func (w *Client) IsLikelyNotMountPoint(context context.Context, request *v1alpha1.IsLikelyNotMountPointRequest, opts ...grpc.CallOption) (*v1alpha1.IsLikelyNotMountPointResponse, error) {
-	return w.client.IsLikelyNotMountPoint(context, request, opts...)
+func (w *Client) IsMountPoint(context context.Context, request *v1alpha1.IsMountPointRequest, opts ...grpc.CallOption) (*v1alpha1.IsMountPointResponse, error) {
+	return w.client.IsMountPoint(context, request, opts...)
 }
 
 func (w *Client) LinkPath(context context.Context, request *v1alpha1.LinkPathRequest, opts ...grpc.CallOption) (*v1alpha1.LinkPathResponse, error) {

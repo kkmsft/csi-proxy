@@ -493,7 +493,7 @@ func (m *LinkPathResponse) GetError() string {
 	return ""
 }
 
-type IsLikelyNotMountPointRequest struct {
+type IsMountPointRequest struct {
 	// The path whose existence we want to check in the host's filesystem
 	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -501,83 +501,83 @@ type IsLikelyNotMountPointRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *IsLikelyNotMountPointRequest) Reset()         { *m = IsLikelyNotMountPointRequest{} }
-func (m *IsLikelyNotMountPointRequest) String() string { return proto.CompactTextString(m) }
-func (*IsLikelyNotMountPointRequest) ProtoMessage()    {}
-func (*IsLikelyNotMountPointRequest) Descriptor() ([]byte, []int) {
+func (m *IsMountPointRequest) Reset()         { *m = IsMountPointRequest{} }
+func (m *IsMountPointRequest) String() string { return proto.CompactTextString(m) }
+func (*IsMountPointRequest) ProtoMessage()    {}
+func (*IsMountPointRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_00212fb1f9d3bf1c, []int{8}
 }
 
-func (m *IsLikelyNotMountPointRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IsLikelyNotMountPointRequest.Unmarshal(m, b)
+func (m *IsMountPointRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsMountPointRequest.Unmarshal(m, b)
 }
-func (m *IsLikelyNotMountPointRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IsLikelyNotMountPointRequest.Marshal(b, m, deterministic)
+func (m *IsMountPointRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsMountPointRequest.Marshal(b, m, deterministic)
 }
-func (m *IsLikelyNotMountPointRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IsLikelyNotMountPointRequest.Merge(m, src)
+func (m *IsMountPointRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsMountPointRequest.Merge(m, src)
 }
-func (m *IsLikelyNotMountPointRequest) XXX_Size() int {
-	return xxx_messageInfo_IsLikelyNotMountPointRequest.Size(m)
+func (m *IsMountPointRequest) XXX_Size() int {
+	return xxx_messageInfo_IsMountPointRequest.Size(m)
 }
-func (m *IsLikelyNotMountPointRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_IsLikelyNotMountPointRequest.DiscardUnknown(m)
+func (m *IsMountPointRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsMountPointRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_IsLikelyNotMountPointRequest proto.InternalMessageInfo
+var xxx_messageInfo_IsMountPointRequest proto.InternalMessageInfo
 
-func (m *IsLikelyNotMountPointRequest) GetPath() string {
+func (m *IsMountPointRequest) GetPath() string {
 	if m != nil {
 		return m.Path
 	}
 	return ""
 }
 
-type IsLikelyNotMountPointResponse struct {
+type IsMountPointResponse struct {
 	// Error message if any. Empty string indicates success
 	Error string `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
 	// Indicates whether the path in PathExistsRequest exists in the host's filesystem
-	IsNotMountPoint      bool     `protobuf:"varint,2,opt,name=is_not_mount_point,json=isNotMountPoint,proto3" json:"is_not_mount_point,omitempty"`
+	IsMountPoint         bool     `protobuf:"varint,2,opt,name=is_mount_point,json=isMountPoint,proto3" json:"is_mount_point,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *IsLikelyNotMountPointResponse) Reset()         { *m = IsLikelyNotMountPointResponse{} }
-func (m *IsLikelyNotMountPointResponse) String() string { return proto.CompactTextString(m) }
-func (*IsLikelyNotMountPointResponse) ProtoMessage()    {}
-func (*IsLikelyNotMountPointResponse) Descriptor() ([]byte, []int) {
+func (m *IsMountPointResponse) Reset()         { *m = IsMountPointResponse{} }
+func (m *IsMountPointResponse) String() string { return proto.CompactTextString(m) }
+func (*IsMountPointResponse) ProtoMessage()    {}
+func (*IsMountPointResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_00212fb1f9d3bf1c, []int{9}
 }
 
-func (m *IsLikelyNotMountPointResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_IsLikelyNotMountPointResponse.Unmarshal(m, b)
+func (m *IsMountPointResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IsMountPointResponse.Unmarshal(m, b)
 }
-func (m *IsLikelyNotMountPointResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_IsLikelyNotMountPointResponse.Marshal(b, m, deterministic)
+func (m *IsMountPointResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IsMountPointResponse.Marshal(b, m, deterministic)
 }
-func (m *IsLikelyNotMountPointResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_IsLikelyNotMountPointResponse.Merge(m, src)
+func (m *IsMountPointResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IsMountPointResponse.Merge(m, src)
 }
-func (m *IsLikelyNotMountPointResponse) XXX_Size() int {
-	return xxx_messageInfo_IsLikelyNotMountPointResponse.Size(m)
+func (m *IsMountPointResponse) XXX_Size() int {
+	return xxx_messageInfo_IsMountPointResponse.Size(m)
 }
-func (m *IsLikelyNotMountPointResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_IsLikelyNotMountPointResponse.DiscardUnknown(m)
+func (m *IsMountPointResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_IsMountPointResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_IsLikelyNotMountPointResponse proto.InternalMessageInfo
+var xxx_messageInfo_IsMountPointResponse proto.InternalMessageInfo
 
-func (m *IsLikelyNotMountPointResponse) GetError() string {
+func (m *IsMountPointResponse) GetError() string {
 	if m != nil {
 		return m.Error
 	}
 	return ""
 }
 
-func (m *IsLikelyNotMountPointResponse) GetIsNotMountPoint() bool {
+func (m *IsMountPointResponse) GetIsMountPoint() bool {
 	if m != nil {
-		return m.IsNotMountPoint
+		return m.IsMountPoint
 	}
 	return false
 }
@@ -592,42 +592,41 @@ func init() {
 	proto.RegisterType((*RmdirResponse)(nil), "v1alpha1.RmdirResponse")
 	proto.RegisterType((*LinkPathRequest)(nil), "v1alpha1.LinkPathRequest")
 	proto.RegisterType((*LinkPathResponse)(nil), "v1alpha1.LinkPathResponse")
-	proto.RegisterType((*IsLikelyNotMountPointRequest)(nil), "v1alpha1.IsLikelyNotMountPointRequest")
-	proto.RegisterType((*IsLikelyNotMountPointResponse)(nil), "v1alpha1.IsLikelyNotMountPointResponse")
+	proto.RegisterType((*IsMountPointRequest)(nil), "v1alpha1.IsMountPointRequest")
+	proto.RegisterType((*IsMountPointResponse)(nil), "v1alpha1.IsMountPointResponse")
 }
 
-func init() {
-	proto.RegisterFile("github.com/kubernetes-csi/csi-proxy/client/api/filesystem/v1alpha1/api.proto", fileDescriptor_78274760fcbff95c)
-}
+func init() { proto.RegisterFile("api.proto", fileDescriptor_00212fb1f9d3bf1c) }
 
-var fileDescriptor_78274760fcbff95c = []byte{
-	// 408 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x53, 0x4d, 0x6f, 0xda, 0x40,
-	0x10, 0xc5, 0x50, 0x3e, 0x3a, 0xd0, 0x96, 0xae, 0x5a, 0x4a, 0xdd, 0x4a, 0x45, 0x2b, 0x55, 0x42,
-	0x95, 0xb0, 0x05, 0xbd, 0xf5, 0x58, 0xfa, 0x21, 0x24, 0xda, 0x20, 0xa3, 0x48, 0xb9, 0x45, 0xc6,
-	0x59, 0xf0, 0x0a, 0xf0, 0x3a, 0xbb, 0xeb, 0x08, 0xfe, 0x47, 0x7e, 0x70, 0xb4, 0x5e, 0x3b, 0x5e,
-	0x12, 0xc4, 0x89, 0x9b, 0xe7, 0xcd, 0x9b, 0x37, 0x6f, 0x67, 0xc6, 0x30, 0x5d, 0x51, 0x19, 0x26,
-	0x0b, 0x27, 0x60, 0x5b, 0x77, 0x9d, 0x2c, 0x08, 0x8f, 0x88, 0x24, 0x62, 0x10, 0x08, 0xea, 0x06,
-	0x82, 0x0e, 0x62, 0xce, 0x76, 0x7b, 0x37, 0xd8, 0x50, 0x12, 0x49, 0xd7, 0x8f, 0xa9, 0xbb, 0xa4,
-	0x1b, 0x22, 0xf6, 0x42, 0x92, 0xad, 0x7b, 0x37, 0xf4, 0x37, 0x71, 0xe8, 0x0f, 0x15, 0xee, 0xc4,
-	0x9c, 0x49, 0x86, 0x1a, 0x39, 0x86, 0xaf, 0xe0, 0xed, 0xcc, 0x97, 0xe1, 0xef, 0x1d, 0x15, 0x52,
-	0x78, 0xe4, 0x36, 0x21, 0x42, 0x22, 0x04, 0x2f, 0x62, 0x5f, 0x86, 0x5d, 0xab, 0x67, 0xf5, 0x5f,
-	0x7a, 0xe9, 0x37, 0x72, 0xa1, 0x1e, 0xb0, 0x48, 0x92, 0x9d, 0xec, 0x96, 0x7b, 0x56, 0xff, 0xf5,
-	0xe8, 0xbd, 0x93, 0x8b, 0x38, 0x4a, 0x61, 0xac, 0x93, 0x5e, 0xce, 0xc2, 0x3f, 0x01, 0x99, 0xca,
-	0x22, 0x66, 0x91, 0x20, 0xe8, 0x1d, 0x54, 0x09, 0xe7, 0x8c, 0x67, 0xda, 0x3a, 0x40, 0x1d, 0xa8,
-	0x91, 0x94, 0x97, 0x6a, 0x37, 0xbc, 0x2c, 0xc2, 0x73, 0x68, 0xfd, 0x5b, 0xdf, 0x50, 0x7e, 0x56,
-	0x63, 0x5f, 0xe1, 0x55, 0x26, 0x7a, 0xca, 0x13, 0xa6, 0xd0, 0xf2, 0xb6, 0x67, 0xee, 0xad, 0x5a,
-	0x2d, 0x19, 0x0f, 0x48, 0xb7, 0x92, 0xbe, 0x53, 0x07, 0xca, 0x51, 0xd6, 0xea, 0xa4, 0xa3, 0x39,
-	0xbc, 0x99, 0xd2, 0x68, 0xad, 0x84, 0x73, 0x53, 0x5f, 0xa0, 0x29, 0x58, 0xc2, 0x03, 0x72, 0x6d,
-	0x78, 0x03, 0x0d, 0x29, 0x9e, 0x22, 0x48, 0x9f, 0xaf, 0x88, 0xd4, 0x84, 0xb2, 0x26, 0x68, 0x48,
-	0x11, 0x70, 0x1f, 0xda, 0x85, 0xe8, 0xa9, 0xf6, 0xdf, 0x30, 0x34, 0x8d, 0x37, 0x21, 0x80, 0xda,
-	0x6c, 0x7a, 0xf9, 0x77, 0xf2, 0xbf, 0x5d, 0x42, 0x75, 0xa8, 0xcc, 0x2e, 0x7e, 0xb5, 0xad, 0xd1,
-	0x7d, 0x19, 0xe0, 0xcf, 0xe3, 0xe9, 0xa1, 0x09, 0x40, 0x71, 0x03, 0xe8, 0xd3, 0xe1, 0x70, 0x0e,
-	0x6e, 0xce, 0xfe, 0x7c, 0x3c, 0xa9, 0x1d, 0xe1, 0x12, 0xfa, 0x01, 0xd5, 0x74, 0x6b, 0xa8, 0x53,
-	0x10, 0xcd, 0xdb, 0xb0, 0x3f, 0x3c, 0xc3, 0xcd, 0xda, 0x74, 0xbe, 0x66, 0xad, 0xb9, 0x5b, 0xb3,
-	0xf6, 0x60, 0x11, 0xb8, 0x84, 0xc6, 0xd0, 0xc8, 0xe7, 0x83, 0x3e, 0x16, 0xb4, 0x27, 0x8b, 0xb0,
-	0xed, 0x63, 0xa9, 0x5c, 0x64, 0x51, 0x4b, 0x7f, 0xbb, 0xef, 0x0f, 0x01, 0x00, 0x00, 0xff, 0xff,
-	0x31, 0xae, 0xcf, 0x5d, 0xc6, 0x03, 0x00, 0x00,
+var fileDescriptor_00212fb1f9d3bf1c = []byte{
+	// 419 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0x5f, 0xcf, 0xd2, 0x30,
+	0x14, 0xc6, 0x19, 0xaf, 0x2f, 0x2f, 0x1c, 0x26, 0xe2, 0x11, 0x11, 0xe7, 0x3f, 0xd2, 0x68, 0x82,
+	0x5e, 0x60, 0xc0, 0x3b, 0x2f, 0xc5, 0x3f, 0x21, 0x01, 0x59, 0x46, 0x4c, 0xbc, 0x23, 0x13, 0xab,
+	0x34, 0xc0, 0x3a, 0xdb, 0x62, 0xf0, 0x03, 0xfb, 0x3d, 0x4c, 0xd7, 0xcd, 0x75, 0xca, 0xbb, 0x2b,
+	0xee, 0x68, 0xcf, 0xef, 0x3c, 0xe7, 0xa1, 0xe7, 0xc9, 0xa0, 0x11, 0xc6, 0x6c, 0x18, 0x0b, 0xae,
+	0x38, 0xd6, 0x7f, 0x8e, 0xc2, 0x5d, 0xbc, 0x09, 0x47, 0xe4, 0x33, 0xdc, 0xf6, 0x43, 0xb5, 0x79,
+	0x77, 0x64, 0x52, 0xc9, 0x80, 0xfe, 0x38, 0x50, 0xa9, 0x10, 0xe1, 0x46, 0x1c, 0xaa, 0x4d, 0xcf,
+	0xe9, 0x3b, 0x83, 0x46, 0x90, 0xfc, 0xc6, 0x97, 0x70, 0xb5, 0xe6, 0x91, 0xa2, 0x47, 0xd5, 0xab,
+	0xf6, 0x9d, 0x41, 0x6b, 0x7c, 0x77, 0x98, 0x89, 0x0c, 0xb5, 0xc2, 0xc4, 0x14, 0x83, 0x8c, 0x22,
+	0x6f, 0x00, 0x6d, 0x65, 0x19, 0xf3, 0x48, 0x52, 0xec, 0xc0, 0x25, 0x15, 0x82, 0x8b, 0x54, 0xdb,
+	0x1c, 0xb0, 0x0b, 0x35, 0x9a, 0x70, 0x89, 0x76, 0x3d, 0x48, 0x4f, 0x64, 0x09, 0xee, 0x7c, 0xfb,
+	0x95, 0x89, 0xb3, 0x1a, 0x7b, 0x06, 0x37, 0x53, 0xd1, 0x32, 0x4f, 0x84, 0x81, 0x1b, 0xec, 0xcf,
+	0x3c, 0x5b, 0x8f, 0xfa, 0xc6, 0xc5, 0x9a, 0xf6, 0x2e, 0x92, 0xff, 0x69, 0x0e, 0xda, 0x51, 0x3a,
+	0xaa, 0xd4, 0xd1, 0x12, 0x6e, 0xcd, 0x58, 0xb4, 0xd5, 0xc2, 0x99, 0xa9, 0x27, 0xd0, 0x94, 0xfc,
+	0x20, 0xd6, 0x74, 0x65, 0x79, 0x03, 0x73, 0xa5, 0x39, 0x0d, 0xa8, 0x50, 0x7c, 0xa7, 0xca, 0x00,
+	0x55, 0x03, 0x98, 0x2b, 0x0d, 0x90, 0x01, 0xb4, 0x73, 0xd1, 0xd2, 0xf1, 0xcf, 0xe1, 0xce, 0x54,
+	0xce, 0xf9, 0x21, 0x52, 0x3e, 0x67, 0x91, 0x2a, 0x79, 0x17, 0x12, 0x40, 0xa7, 0x88, 0x96, 0x6e,
+	0xff, 0x29, 0xb4, 0x98, 0x5c, 0xed, 0x35, 0xbe, 0x8a, 0x35, 0x9f, 0xa6, 0xc0, 0x65, 0x96, 0xc6,
+	0x0b, 0x02, 0x4d, 0xeb, 0x49, 0x11, 0xa0, 0xe6, 0xcf, 0x3e, 0x7d, 0x98, 0x7e, 0x6c, 0x57, 0xf0,
+	0x0a, 0x2e, 0xfc, 0xc5, 0xdb, 0xb6, 0x33, 0xfe, 0x5d, 0x05, 0x78, 0xcf, 0x76, 0x54, 0xfe, 0x92,
+	0x8a, 0xee, 0x71, 0x0a, 0x90, 0x47, 0x10, 0x1f, 0x14, 0x77, 0x53, 0x88, 0xbc, 0xf7, 0xf0, 0x74,
+	0xd1, 0xf8, 0x26, 0x15, 0x7c, 0x0d, 0x97, 0x49, 0x68, 0xb0, 0x9b, 0x83, 0x76, 0x34, 0xbd, 0x7b,
+	0xff, 0xdd, 0xdb, 0xbd, 0xc9, 0x7a, 0xed, 0x5e, 0x3b, 0x5a, 0x76, 0x6f, 0x21, 0x07, 0xa4, 0x82,
+	0x13, 0xa8, 0x67, 0xeb, 0xc1, 0xfb, 0x39, 0xf6, 0x4f, 0x0e, 0x3c, 0xef, 0x54, 0xe9, 0xaf, 0xc8,
+	0x02, 0x5c, 0x7b, 0x1d, 0xf8, 0x28, 0xa7, 0x4f, 0x6c, 0xd4, 0x7b, 0x7c, 0x5d, 0x39, 0x13, 0xfc,
+	0x52, 0x4b, 0x3e, 0x23, 0xaf, 0xfe, 0x04, 0x00, 0x00, 0xff, 0xff, 0x9d, 0x99, 0x98, 0x53, 0x53,
+	0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -652,8 +651,8 @@ type FilesystemClient interface {
 	// LinkPath creates a local directory symbolic link between a source path
 	// and target path in the host's filesystem
 	LinkPath(ctx context.Context, in *LinkPathRequest, opts ...grpc.CallOption) (*LinkPathResponse, error)
-	//IsLikelyNotMountPoint checks if a given path is mount or not
-	IsLikelyNotMountPoint(ctx context.Context, in *IsLikelyNotMountPointRequest, opts ...grpc.CallOption) (*IsLikelyNotMountPointResponse, error)
+	//IsMountPoint checks if a given path is mount or not
+	IsMountPoint(ctx context.Context, in *IsMountPointRequest, opts ...grpc.CallOption) (*IsMountPointResponse, error)
 }
 
 type filesystemClient struct {
@@ -700,9 +699,9 @@ func (c *filesystemClient) LinkPath(ctx context.Context, in *LinkPathRequest, op
 	return out, nil
 }
 
-func (c *filesystemClient) IsLikelyNotMountPoint(ctx context.Context, in *IsLikelyNotMountPointRequest, opts ...grpc.CallOption) (*IsLikelyNotMountPointResponse, error) {
-	out := new(IsLikelyNotMountPointResponse)
-	err := c.cc.Invoke(ctx, "/v1alpha1.Filesystem/IsLikelyNotMountPoint", in, out, opts...)
+func (c *filesystemClient) IsMountPoint(ctx context.Context, in *IsMountPointRequest, opts ...grpc.CallOption) (*IsMountPointResponse, error) {
+	out := new(IsMountPointResponse)
+	err := c.cc.Invoke(ctx, "/v1alpha1.Filesystem/IsMountPoint", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -721,8 +720,8 @@ type FilesystemServer interface {
 	// LinkPath creates a local directory symbolic link between a source path
 	// and target path in the host's filesystem
 	LinkPath(context.Context, *LinkPathRequest) (*LinkPathResponse, error)
-	//IsLikelyNotMountPoint checks if a given path is mount or not
-	IsLikelyNotMountPoint(context.Context, *IsLikelyNotMountPointRequest) (*IsLikelyNotMountPointResponse, error)
+	//IsMountPoint checks if a given path is mount or not
+	IsMountPoint(context.Context, *IsMountPointRequest) (*IsMountPointResponse, error)
 }
 
 // UnimplementedFilesystemServer can be embedded to have forward compatible implementations.
@@ -741,8 +740,8 @@ func (*UnimplementedFilesystemServer) Rmdir(ctx context.Context, req *RmdirReque
 func (*UnimplementedFilesystemServer) LinkPath(ctx context.Context, req *LinkPathRequest) (*LinkPathResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LinkPath not implemented")
 }
-func (*UnimplementedFilesystemServer) IsLikelyNotMountPoint(ctx context.Context, req *IsLikelyNotMountPointRequest) (*IsLikelyNotMountPointResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method IsLikelyNotMountPoint not implemented")
+func (*UnimplementedFilesystemServer) IsMountPoint(ctx context.Context, req *IsMountPointRequest) (*IsMountPointResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsMountPoint not implemented")
 }
 
 func RegisterFilesystemServer(s *grpc.Server, srv FilesystemServer) {
@@ -821,20 +820,20 @@ func _Filesystem_LinkPath_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Filesystem_IsLikelyNotMountPoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsLikelyNotMountPointRequest)
+func _Filesystem_IsMountPoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsMountPointRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FilesystemServer).IsLikelyNotMountPoint(ctx, in)
+		return srv.(FilesystemServer).IsMountPoint(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/v1alpha1.Filesystem/IsLikelyNotMountPoint",
+		FullMethod: "/v1alpha1.Filesystem/IsMountPoint",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FilesystemServer).IsLikelyNotMountPoint(ctx, req.(*IsLikelyNotMountPointRequest))
+		return srv.(FilesystemServer).IsMountPoint(ctx, req.(*IsMountPointRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -860,8 +859,8 @@ var _Filesystem_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Filesystem_LinkPath_Handler,
 		},
 		{
-			MethodName: "IsLikelyNotMountPoint",
-			Handler:    _Filesystem_IsLikelyNotMountPoint_Handler,
+			MethodName: "IsMountPoint",
+			Handler:    _Filesystem_IsMountPoint_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
