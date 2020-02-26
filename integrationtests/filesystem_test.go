@@ -99,7 +99,7 @@ func TestFilesystemAPIGroup(t *testing.T) {
 		exists, err = pathExists(stagepath)
 		assert.False(t, exists, err)
 	})
-	t.Run("IsMountPoint", func(t *testing.T) {
+	t.Run("IsMount", func(t *testing.T) {
 		client, err := v1alpha1client.NewClient()
 		require.Nil(t, err)
 		defer client.Close()
@@ -114,25 +114,25 @@ func TestFilesystemAPIGroup(t *testing.T) {
 		require.Nil(t, err)
 		defer os.RemoveAll(testDir)
 
-		//1. Check the isMountPoint on a path which does not exist
+		//1. Check the isMount on a path which does not exist
 		stagepath := fmt.Sprintf("C:\\var\\lib\\kubelet\\plugins\\testplugin-%d.csi.io\\volume%d", rand1, rand2)
-		isLikelyNotMountRequest := &v1alpha1.IsLikelyNotMountPointRequest{
+		isMountRequest := &v1alpha1.IsMountPointRequest{
 			Path: stagepath,
 		}
-		isLikelyNotMountResponse, err := client.IsLikelyNotMountPoint(context.Background(), isLikelyNotMountRequest)
+		isMountResponse, err := client.IsMountPoint(context.Background(), isMountRequest)
 		require.Nil(t, err)
-		require.Equal(t, isLikelyNotMountResponse.IsMountPoint, false)
+		require.Equal(t, isMountResponse.IsNotMountPoint, true)
 
-		//2. Create the directory. This time its not a mount point. So false should be returned.
+		//2. Create the directory. This time its not a mount point. So true should be returned.
 		err = os.Mkdir(stagepath, os.ModeDir)
 		require.Nil(t, err)
 		defer os.Remove(stagepath)
-		isLikelyNotMountRequest = &v1alpha1.IsLikelyNotMountPointRequest{
+		isMountRequest = &v1alpha1.IsMountPointRequest{
 			Path: stagepath,
 		}
-		isLikelyNotMountResponse, err = client.IsLikelyNotMountPoint(context.Background(), isLikelyNotMountRequest)
+		isMountResponse, err = client.IsMountPoint(context.Background(), isMountRequest)
 		require.Nil(t, err)
-		require.Equal(t, isLikelyNotMountResponse.IsNotMountPoint, false)
+		require.Equal(t, isMountResponse.IsNotMountPoint, true)
 
 		err = os.Remove(stagepath)
 		require.Nil(t, err)
@@ -148,21 +148,21 @@ func TestFilesystemAPIGroup(t *testing.T) {
 		require.Nil(t, err)
 		defer os.Remove(lnTargetStagePath)
 
-		isLikelyNotMountRequest = &v1alpha1.IsLikelyNotMountPointRequest{
+		isMountRequest = &v1alpha1.IsMountPointRequest{
 			Path: lnTargetStagePath,
 		}
-		isLikelyNotMountResponse, err = client.IsLikelyNotMountPoint(context.Background(), isLikelyNotMountRequest)
+		isMountResponse, err = client.IsMountPoint(context.Background(), isMountRequest)
 		require.Nil(t, err)
-		require.Equal(t, isLikelyNotMountResponse.IsNotMountPoint, true)
+		require.Equal(t, isMountResponse.IsNotMountPoint, false)
 
 		// 4. Remove the path.
 		err = os.Remove(targetStagePath)
 		require.Nil(t, err)
-		isLikelyNotMountRequest = &v1alpha1.IsLikelyNotMountPointRequest{
+		isMountRequest = &v1alpha1.IsMountPointRequest{
 			Path: lnTargetStagePath,
 		}
-		isLikelyNotMountResponse, err = client.IsLikelyNotMountPoint(context.Background(), isLikelyNotMountRequest)
+		isMountResponse, err = client.IsMountPoint(context.Background(), isMountRequest)
 		require.Nil(t, err)
-		require.Equal(t, isLikelyNotMountResponse.IsNotMountPoint, true)
+		require.Equal(t, isMountResponse.IsNotMountPoint, true)
 	})
 }
