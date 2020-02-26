@@ -1,13 +1,8 @@
 package filesystem
 
 import (
-	// "fmt"
 	"fmt"
 	"os"
-
-	"k8s.io/klog"
-	// "os/exec"
-	// "runtime"
 )
 
 // Implements the Filesystem OS API calls. All code here should be very simple
@@ -56,7 +51,7 @@ func (APIImplementor) LinkPath(tgt string, src string) error {
 //  - directory exists and
 //  - it is a soft link and
 //  - the target path of the link exists.
-func (APIImplementor) IsMountPoint(tgt string) (bool, error) {	
+func (APIImplementor) IsMountPoint(tgt string) (bool, error) {
 	// This code is similar to k8s.io/kubernetes/pkg/util/mount except the pathExists usage.
 	// Also in a remote call environment the os error cannot be passed directly back, hence the callers
 	// are expected to perform the isExists check before calling this call in CSI proxy.
