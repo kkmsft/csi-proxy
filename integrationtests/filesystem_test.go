@@ -121,7 +121,7 @@ func TestFilesystemAPIGroup(t *testing.T) {
 		}
 		isMountResponse, err := client.IsMountPoint(context.Background(), isMountRequest)
 		require.Nil(t, err)
-		require.Equal(t, isMountResponse.IsMountPoint, true)
+		require.Equal(t, isMountResponse.IsMountPoint, false)
 
 		//2. Create the directory. This time its not a mount point. So true should be returned.
 		err = os.Mkdir(stagepath, os.ModeDir)
@@ -132,7 +132,7 @@ func TestFilesystemAPIGroup(t *testing.T) {
 		}
 		isMountResponse, err = client.IsMountPoint(context.Background(), isMountRequest)
 		require.Nil(t, err)
-		require.Equal(t, isMountResponse.IsMountPoint, true)
+		require.Equal(t, isMountResponse.IsMountPoint, false)
 
 		err = os.Remove(stagepath)
 		require.Nil(t, err)
