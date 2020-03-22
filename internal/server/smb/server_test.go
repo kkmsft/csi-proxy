@@ -10,7 +10,7 @@ import (
 
 type fakeSmbAPI struct{}
 
-func (fakeSmbAPI) NewSmbGlobalMapping(remotePath, username, password string) error {
+func (fakeSmbAPI) NewSmbGlobalMapping(remotePath, localPath, username, password string) error {
 	return nil
 }
 
@@ -25,6 +25,7 @@ func TestNewSmbGlobalMapping(t *testing.T) {
 	}
 	testCases := []struct {
 		remote      string
+		local       string
 		username    string
 		password    string
 		version     apiversion.Version
@@ -51,6 +52,7 @@ func TestNewSmbGlobalMapping(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		req := &internal.NewSmbGlobalMappingRequest{
+			LocalPath:  tc.local,
 			RemotePath: tc.remote,
 			Username:   tc.username,
 			Password:   tc.password,
