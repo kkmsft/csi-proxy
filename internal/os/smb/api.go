@@ -14,22 +14,33 @@ func New() APIImplementor {
 	return APIImplementor{}
 }
 
-func (APIImplementor) NewSmbGlobalMapping(remotePath, username, password string) error {
-	klog.V(4).Infof("NewSmbGlobalMapping: remotePath:%q", remotePath)
+func (APIImplementor) NewSmbGlobalMapping(remotePath, localPath, username, password string) error {
+	klog.V(4).Infof("NewSmbGlobalMapping: remotePath:%q, localPath:%q", remotePath, localPath)
 
-	// use PowerShell Environment Variables to store user input string to prevent command line injection
-	// https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-5.1
-	cmdLine := fmt.Sprintf(`$PWord = ConvertTo-SecureString -String $Env:smbpassword -AsPlainText -Force` +
-		`;$Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $Env:smbuser, $PWord` +
-		`;New-SmbGlobalMapping -RemotePath $Env:smbremotepath -Credential $Credential`)
-
-	cmd := exec.Command("powershell", "/c", cmdLine)
-	cmd.Env = append(os.Environ(),
+	env := append(os.Environ(),
 		fmt.Sprintf("smbuser=%s", username),
 		fmt.Sprintf("smbpassword=%s", password),
 		fmt.Sprintf("smbremotepath=%s", remotePath))
+	// use PowerShell Environment Variables to store user input string to prevent command line injection
+	// https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-5.1
+	cmdLine := fmt.Sprintf(`$PWord = ConvertTo-SecureString -String $Env:smbpassword -AsPlainText -Force` +
+		`;$Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $Env:smbuser, $PWord;`)
+
+	if len(localPath) == 0 {
+		cmdLine = fmt.Sprintf("%s%s", cmdLine, `New-SmbGlobalMapping -RemotePath $Env:smbremotepath -Credential $Credential`)
+	} else {
+		env = append(env, fmt.Sprintf("smblocalpath=%s", localPath))
+		cmdLine = fmt.Sprintf("%s%s", cmdLine, `New-SmbGlobalMapping -RemotePath $Env:smbremotepath -LocalPath $Env:smblocalpath -Credential $Credential`)
+	}
+
+	cmd := exec.Command("powershell", "/c", cmdLine)
+	cmd.Env = env
+
+	// TODO: Remove this debug log.
+	klog.Infof("cmdline: %s. env: %v", cmdLine, cmd.Env)
+
 	if output, err := cmd.CombinedOutput(); err != nil {
-		return fmt.Errorf("SmbGlobaNewSmbGlobalMappinglMapping failed: %v, output: %q", err, string(output))
+		return fmt.Errorf("NewSmbGlobalMapping failed: %v, output: %q", err, string(output))
 	}
 	return nil
 }

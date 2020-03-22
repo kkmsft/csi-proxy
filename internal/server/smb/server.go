@@ -13,7 +13,7 @@ type Server struct {
 }
 
 type API interface {
-	NewSmbGlobalMapping(remotePath, username, password string) error
+	NewSmbGlobalMapping(remotePath, localPath, username, password string) error
 	RemoveSmbGlobalMapping(remotePath string) error
 }
 
@@ -26,12 +26,13 @@ func NewServer(hostAPI API) (*Server, error) {
 func (s *Server) NewSmbGlobalMapping(context context.Context, request *internal.NewSmbGlobalMappingRequest, version apiversion.Version) (*internal.NewSmbGlobalMappingResponse, error) {
 	response := &internal.NewSmbGlobalMappingResponse{}
 	remotePath := request.RemotePath
+	localPath := request.RemotePath
 
 	if remotePath == "" {
 		return response, fmt.Errorf("remote path is empty")
 	}
 
-	err := s.hostAPI.NewSmbGlobalMapping(remotePath, request.Username, request.Password)
+	err := s.hostAPI.NewSmbGlobalMapping(remotePath, localPath, request.Username, request.Password)
 	if err != nil {
 		return response, err
 	}
