@@ -26,7 +26,7 @@ func NewServer(hostAPI API) (*Server, error) {
 func (s *Server) NewSmbGlobalMapping(context context.Context, request *internal.NewSmbGlobalMappingRequest, version apiversion.Version) (*internal.NewSmbGlobalMappingResponse, error) {
 	response := &internal.NewSmbGlobalMappingResponse{}
 	remotePath := request.RemotePath
-	localPath := request.RemotePath
+	localPath := request.LocalPath
 
 	if remotePath == "" {
 		return response, fmt.Errorf("remote path is empty")
